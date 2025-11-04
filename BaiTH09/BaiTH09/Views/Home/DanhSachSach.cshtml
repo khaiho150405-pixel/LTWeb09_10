@@ -1,0 +1,88 @@
+﻿@model IEnumerable<BaiTH09.Models.Sach>
+
+<h3 class="mb-4 text-uppercase fw-bold text-center text-danger">
+    <i class="bi bi-book-half"></i> Danh sách sách
+</h3>
+
+<div class="row g-4">
+    @foreach (var s in Model)
+    {
+        <div class="col-md-3 col-sm-6">
+            <div class="card h-100 border-0 shadow-sm book-card">
+                <div class="overflow-hidden position-relative d-flex justify-content-center align-items-center bg-light" style="height: 240px;">
+                    <img src="@Url.Content(s.AnhBia)"
+                         class="book-img img-fluid"
+                         alt="@s.TenSach" />
+
+                    @if (s.Moi != null && s.Moi.ToLower() == "yes")
+                    {
+                        <span class="position-absolute top-0 start-0 bg-danger text-white px-2 py-1 small rounded-end">
+                            Mới
+                        </span>
+                    }
+                </div>
+
+                <div class="card-body text-center">
+                    <h6 class="card-title text-truncate" title="@s.TenSach">@s.TenSach</h6>
+                    <p class="text-danger fw-bold mb-2">@String.Format("{0:N0} ₫", s.GiaBan)</p>
+                    <a href="@Url.Action("ChiTietSach", "Home", new { id = s.MaSach })"
+                       class="btn btn-outline-warning btn-sm px-3">
+                        <i class="bi bi-eye"></i> Xem chi tiết
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    /* Hiệu ứng thẻ */
+    .book-card {
+        transition: all 0.3s ease;
+        border-radius: 10px;
+    }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+            .book-card:hover .book-img {
+                transform: scale(1.12);
+            }
+
+
+    /* Ảnh sách - thu phóng vừa khung */
+    .book-img {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain; /* giữ nguyên tỉ lệ, không cắt ảnh */
+        transition: transform 0.4s ease;
+    }
+
+    .book-card:hover .book-img {
+        transform: scale(1.07);
+    }
+
+    /* Thông tin sách */
+    .card-body {
+        background-color: #fff;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .card-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .btn-outline-warning {
+        border-color: #ff6f00;
+        color: #ff6f00;
+    }
+
+        .btn-outline-warning:hover {
+            background-color: #ff6f00;
+            color: #fff;
+        }
+</style>

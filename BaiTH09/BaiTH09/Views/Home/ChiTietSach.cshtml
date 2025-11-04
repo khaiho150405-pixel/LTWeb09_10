@@ -1,0 +1,112 @@
+﻿@model BaiTH09.Models.ViewModels.ChiTietSachViewModel
+
+<h3 class="mb-4 text-uppercase fw-bold text-center text-danger">CHI TIẾT SẢN PHẨM</h3>
+
+<div class="container mt-4">
+
+    <!-- ===== Thông tin chi tiết sách ===== -->
+    <div class="card mb-4 shadow-sm">
+        <div class="row g-0">
+            <div class="col-md-4 text-center p-3">
+                <img src="@Url.Content(Model.Sach.AnhBia)"
+                     alt="@Model.Sach.TenSach"
+                     class="img-fluid rounded" style="max-height: 400px;" />
+            </div>
+            <div class="col-md-8 p-4">
+                <h3 class="fw-bold">@Model.Sach.TenSach</h3>
+                <p><strong>Chủ đề:</strong> @Model.Sach.ChuDe.TenChuDe</p>
+                <p><strong>Nhà xuất bản:</strong> @Model.Sach.NhaXuatBan.TenNXB</p>
+                <p><strong>Giá:</strong> @String.Format("{0:N0} đ", Model.Sach.GiaBan)</p>
+                <p><strong>Mô tả:</strong> @Model.Sach.MoTa</p>
+                <!-- ===== Thông tin tác giả ===== -->
+                @if (Model.TacGiaList != null && Model.TacGiaList.Any())
+                {
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Tác giả tham gia viết sách</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            @foreach (var tg in Model.TacGiaList)
+                            {
+                                <li class="list-group-item">
+                                    <strong>@tg.TenTacGia</strong>
+                                    @if (!string.IsNullOrEmpty(tg.TieuSu))
+                                    {
+                                        <p class="text-muted mb-1">@tg.TieuSu</p>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                <div class="mb-3">
+                    <a href="javascript:history.back()" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left-circle"></i> Quay lại
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Sản phẩm cùng chủ đề ===== -->
+    @if (Model.SanPhamCungChuDe != null && Model.SanPhamCungChuDe.Any())
+    {
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Sản phẩm cùng chủ đề</h5>
+            </div>
+            <div class="row p-3">
+                @foreach (var s in Model.SanPhamCungChuDe)
+                {
+                    <div class="col-md-3 text-center mb-4">
+                        <div class="card h-100 shadow-sm border-0">
+                            <img src="@Url.Content(s.AnhBia)"
+                                 alt="@s.TenSach"
+                                 class="card-img-top"
+                                 style="height: 200px; object-fit: contain;" />
+                            <div class="card-body">
+                                <h6 class="card-title text-truncate">@s.TenSach</h6>
+                                <p class="text-muted mb-2">@String.Format("{0:N0} đ", s.GiaBan)</p>
+                                <a href="@Url.Action("ChiTietSach", "Home", new { id = s.MaSach })"
+                                   class="btn btn-outline-primary btn-sm">
+                                    Xem chi tiết
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    <!-- ===== Sản phẩm cùng nhà xuất bản ===== -->
+    @if (Model.SanPhamCungNXB != null && Model.SanPhamCungNXB.Any())
+    {
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">Sản phẩm cùng nhà xuất bản</h5>
+            </div>
+            <div class="row p-3">
+                @foreach (var s in Model.SanPhamCungNXB)
+                {
+                    <div class="col-md-3 text-center mb-4">
+                        <div class="card h-100 shadow-sm border-0">
+                            <img src="@Url.Content(s.AnhBia)"
+                                 alt="@s.TenSach"
+                                 class="card-img-top"
+                                 style="height: 200px; object-fit: contain;" />
+                            <div class="card-body">
+                                <h6 class="card-title text-truncate">@s.TenSach</h6>
+                                <p class="text-muted mb-2">@String.Format("{0:N0} đ", s.GiaBan)</p>
+                                <a href="@Url.Action("ChiTietSach", "Home", new { id = s.MaSach })"
+                                   class="btn btn-outline-primary btn-sm">
+                                    Xem chi tiết
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<BaiTH09.Models.NhaXuatBan>
+
+<style>
+    /* 1. Thiết lập chung cho các mục trong danh sách */
+    .list-group-item {
+        /* Thiết lập chuyển động mượt mà cho các hiệu ứng */
+        transition: background-color 0.3s ease, transform 0.2s ease, border-left 0.3s ease;
+        border-left: 3px solid transparent;
+    }
+
+    /* 2. Class cho Header (giữ nguyên màu xanh #1D50A2) */
+    .nxb-header {
+        background-color: #1D50A2 !important;
+        color: white !important;
+        font-weight: bold;
+        border-radius: 0;
+    }
+
+    /* 3. Class cho các mục menu có thể click toàn khối (Quan trọng) */
+    .list-group-item.list-item-relative {
+        /* Bắt buộc phải có để stretched-link hoạt động */
+        position: relative;
+        cursor: pointer;
+    }
+
+        /* 4. Hiệu ứng HOVER: Áp dụng lên khối <li> (đã được sửa gọn) */
+        .list-group-item.list-item-relative:hover {
+            background-color: #f0f4f7; /* Màu nền nhạt */
+            transform: translateX(5px); /* Dịch chuyển nhẹ */
+            border-left: 3px solid #1D50A2; /* Đường viền xanh nổi bật */
+        }
+
+            /* 5. Định kiểu cho chữ khi khối LI được hover */
+            /* Quy tắc này đảm bảo chữ cũng đổi màu khi LI được hover */
+            .list-group-item.list-item-relative:hover a.text-dark {
+                color: #1D50A2 !important; /* Đổi màu chữ */
+                font-weight: 500; /* Làm đậm chữ */
+            }
+
+    /* Cảnh báo: Quy tắc sau không cần thiết và có thể gây xung đột nếu giữ lại
+       .list-group-item:not(.cd-header):not(.nxb-header):hover { ... } */
+</style>
+
+<ul class="list-group">
+    <li class="list-group-item nxb-header">NHÀ XUẤT BẢN</li>
+    @foreach (var nxb in Model)
+    {
+        <li class="list-group-item list-item-relative">
+
+            <a href="@Url.Action("SachTheoNXB", "Home", new { MaNXB = nxb.MaNXB })"
+               class="text-decoration-none text-dark stretched-link">
+                @nxb.TenNXB
+            </a>
+        </li>
+    }
+</ul>

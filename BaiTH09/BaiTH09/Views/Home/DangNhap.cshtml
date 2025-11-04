@@ -1,0 +1,48 @@
+﻿@model BaiTH09.Models.KhachHang
+@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-lg">
+                <div class="card-header text-center" style="background-color: #1D50A2; color: white;">
+                    <h3 class="mb-0">ĐĂNG NHẬP</h3>
+                </div>
+                <div class="card-body p-4">
+                    @if (TempData["Message"] != null)
+                    {
+                        <div class="alert alert-success">@TempData["Message"]</div>
+                    }
+
+                    @using (Html.BeginForm("DangNhap", "Home", FormMethod.Post, new { role = "form" }))
+                    {
+                        if (ViewBag.Error != null)
+                        {
+                            <div class="alert alert-danger">@ViewBag.Error</div>
+                        }
+
+                        <div class="mb-3">
+                            <label for="TaiKhoan" class="form-label">Tên đăng nhập:</label>
+                            @Html.TextBoxFor(m => m.TaiKhoan, new { @class = "form-control", required = "required" })
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="MatKhau" class="form-label">Mật khẩu:</label>
+                            @Html.PasswordFor(m => m.MatKhau, new { @class = "form-control", required = "required" })
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Đăng nhập</button>
+                        </div>
+                    }
+                    <p class="text-center mt-3">
+                        Chưa có tài khoản? <a href="@Url.Action("DangKy", "Home")">Đăng ký ngay</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
