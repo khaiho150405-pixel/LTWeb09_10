@@ -1,0 +1,20 @@
+﻿<div class="product-group">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 card mr-2 mt-2 text-center">
+                <div class="product-card">
+                    <img src="~/Content/images/@item.HinhAnh" alt="Alternate Text" style="width:300px;height:350px;" class="card-img-top mt-2" />
+                    <div class="card-body">
+                        <h5 style="font-size:30px;" class="card-title">@item.TenSP</h5>
+                        <p>@String.Format("{0:N0} đ", item.DonGia)</p>
+                        <form action="@Url.Action("ThemMatHang", "DatHang")" method="post">
+                            <input type="hidden" name="maSP" value="@item.MaSP" />
+                            <button type="submit" class="btn btn-success">Chọn mua</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

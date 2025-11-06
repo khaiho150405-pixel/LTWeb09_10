@@ -1,0 +1,72 @@
+﻿@model BaiTH10.Models.GioHang
+@{
+    ViewBag.Title = "XemGiỏHàng";
+}
+
+<h3 class="mb-3">Giỏ hàng của bạn</h3>
+
+@if (Model != null && Model.ds.Any())
+{
+    <form action="@Url.Action("CapNhatGioHang", "DatHang")" method="post">
+        <table class="table table-striped border text-center align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Mã sách</th>
+                    <th>Tên sách</th>
+                    <th>Ảnh</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.ds.Count; i++)
+                {
+                    var item = Model.ds[i];
+                    <tr>
+                        <td>@item.iMaSach</td>
+                        <td>@item.sTenSach</td>
+                        <td>
+                            <img src="~/Content/Images/@item.sAnhBia" width="70" style="object-fit:cover;" />
+                        </td>
+                        <td>
+                            <input type="number" name="ds[@i].iSoLuong" value="@item.iSoLuong" min="1" class="form-control text-center" style="width:80px; display:inline-block;" />
+                            <input type="hidden" name="ds[@i].iMaSach" value="@item.iMaSach" />
+                        </td>
+                        <td>@String.Format("{0:N0} đ", item.dDonGia)</td>
+                        <td>@String.Format("{0:N0} đ", item.ThanhTien)</td>
+                        <td>
+                            <a href="@Url.Action("XoaMatHang", "DatHang", new { maSP = item.iMaSach })"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng không?');">
+                                <i class="fas fa-trash-alt"></i> Xóa
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <a href="@Url.Action("DatHang", "DatHang")" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Tiếp tục mua hàng
+            </a>
+            <div>
+                <h5 class="d-inline-block me-3">
+                    Tổng tiền:
+                    <b class="text-danger">@String.Format("{0:N0} đ", Model.TongThanhTien())</b>
+                </h5>
+                <button type="submit" class="btn btn-warning">
+                    <i class="fas fa-save"></i> Cập nhật giỏ hàng
+                </button>
+            </div>
+        </div>
+    </form>
+}
+else
+{
+    <div class="alert alert-info text-center">
+        Giỏ hàng hiện đang trống.
+    </div>
+}

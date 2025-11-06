@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/fontawesome/css/all.min.css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 0.8rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+            .nav-link:hover {
+                color: var(--secondary-color) !important;
+            }
+
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 2px;
+                bottom: 0;
+                left: 0;
+                background-color: var(--secondary-color);
+                transition: width 0.3s;
+            }
+
+            .nav-link:hover::after {
+                width: 100%;
+            }
+
+        /* Căn hàng cho khu vực bên phải navbar */
+        .navbar .user-section {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem; /* khoảng cách giữa các phần tử */
+            flex-wrap: nowrap; /* không cho tự xuống dòng */
+            min-width: 0;
+        }
+
+            /* Giới hạn độ dài của tên người dùng để không tràn */
+            .navbar .user-section span {
+                max-width: 180px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        /* Sidebar */
+        .sidebar {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .category-list, .publisher-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .category-item, .publisher-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .category-link, .publisher-link {
+            color: #555;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: block;
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+        }
+
+            .category-link:hover, .publisher-link:hover {
+                background-color: var(--light-color);
+                color: var(--secondary-color);
+                padding-left: 1.2rem;
+            }
+
+        /* Main Content */
+        .hero-banner {
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .content-area {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+            .footer h5 {
+                color: var(--light-color);
+                margin-bottom: 1rem;
+            }
+
+        .footer-links {
+            list-style: none;
+            padding-left: 0;
+        }
+
+            .footer-links li {
+                margin-bottom: 0.5rem;
+            }
+
+            .footer-links a {
+                color: #bdc3c7;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+                .footer-links a:hover {
+                    color: white;
+                }
+
+        .copyright {
+            background-color: rgba(0,0,0,0.2);
+            padding: 1rem 0;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        /* Responsive adjustments */
+        @@media (max-width: 768px) {
+            .sidebar {
+                margin-top: 1.5rem;
+            }
+        }
+
+        /* Animation */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                    <i class="fas fa-book me-2"></i>NHÀ SÁCH TRỰC TUYẾN
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Home")">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("About", "Home")">Giới thiệu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Contact", "Home")">Liên hệ</a>
+                        </li>
+                    </ul>
+
+                    <div class="d-flex align-items-center flex-nowrap">
+                        <form class="d-flex" method="get" action="@Url.Action("TimKiem","Home")">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Tìm kiếm sách...">
+                                <button class="btn btn-outline-primary" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="user-section ms-3 d-flex align-items-center flex-nowrap">
+                            @if (Session["KhachHang"] == null)
+                            {
+                                <a href="@Url.Action("DangNhap", "Home")" class="btn btn-outline-primary me-2">
+                                    <i class="fas fa-user"></i> Đăng nhập
+                                </a>
+                                <a href="@Url.Action("DangKy", "Home")" class="btn btn-outline-secondary me-2">
+                                    <i class="fas fa-user-plus"></i> Đăng ký
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="me-2 text-success fw-bold text-truncate" style="max-width: 150px;">
+                                    <i class="fas fa-user"></i> Xin chào, @Session["TenKH"]
+                                </span>
+                                <a href="@Url.Action("DangXuat", "Home")" class="btn btn-outline-danger me-2">
+                                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                                </a>
+                            }
+
+                            <a href="@Url.Action("XemGioHang", "DatHang")" class="btn btn-primary position-relative">
+                                <i class="fas fa-shopping-cart"></i> Giỏ hàng
+                                @if (Session["gh"] != null)
+                                {
+                                    var gioHang = Session["gh"] as BaiTH10.Models.GioHang;
+                                    if (gioHang != null && gioHang.TongSLHang() > 0)
+                                    {
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                            @gioHang.TongSLHang()
+                                        </span>
+                                    }
+                                }
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

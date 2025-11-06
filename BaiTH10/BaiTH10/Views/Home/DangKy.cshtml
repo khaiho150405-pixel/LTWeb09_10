@@ -1,0 +1,51 @@
+﻿@model BaiTH10.Models.tblKhachHang
+@{
+    ViewBag.Title = "Đăng ký tài khoản";
+}
+
+<h2 class="mb-3">Đăng ký tài khoản</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="mb-3">
+        <label for="HoTen" class="form-label">Họ tên</label>
+        @Html.TextBoxFor(m => m.TenKH, new { @class = "form-control", placeholder = "Nhập họ tên..." })
+    </div>
+
+    <div class="mb-3">
+        <label for="TaiKhoan" class="form-label">Tên đăng nhập <span class="text-danger">*</span></label>
+        @Html.TextBoxFor(m => m.TenDangNhap, new
+        {
+            @class = "form-control",
+            placeholder = "Nhập tên đăng nhập...",
+            required = "required"
+        })
+    </div>
+
+    <div class="mb-3">
+        <label for="MatKhau" class="form-label">Mật khẩu</label>
+        @Html.PasswordFor(m => m.MatKhau, new { @class = "form-control", placeholder = "Nhập mật khẩu..." })
+    </div>
+
+
+    <div class="mb-3">
+        <label for="DiaChi" class="form-label">Địa chỉ</label>
+        @Html.TextBoxFor(m => m.DiaChi, new { @class = "form-control", placeholder = "Nhập địa chỉ..." })
+    </div>
+
+    <div class="mb-3">
+        <label for="DienThoai" class="form-label">Điện thoại</label>
+        @Html.TextBoxFor(m => m.SoDienThoai, new { @class = "form-control", placeholder = "Nhập số điện thoại..." })
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary mt-2">Đăng ký</button>
+}
+
+@if (ViewBag.ThongBao != null)
+{
+    <p class="text-danger mt-3">@ViewBag.ThongBao</p>
+}

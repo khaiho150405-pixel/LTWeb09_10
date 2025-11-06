@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Thông báo đặt hàng";
+}
+
+<div class="container text-center mt-5">
+    <h3 class="text-success">
+        <i class="fas fa-check-circle"></i> @ViewBag.ThongBao
+    </h3>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary mt-3">
+        <i class="fas fa-home"></i> Quay lại trang chủ
+    </a>
+</div>

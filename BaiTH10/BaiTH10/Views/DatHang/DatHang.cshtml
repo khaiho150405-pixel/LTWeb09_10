@@ -1,0 +1,74 @@
+﻿@model BaiTH10.Models.GioHang
+@{
+    ViewBag.Title = "Thông tin đặt hàng";
+}
+
+<h3 class="mb-3 text-primary">Thông tin đặt hàng</h3>
+
+@if (Model == null || !Model.ds.Any())
+{
+    <div class="alert alert-warning text-center">
+        Giỏ hàng của bạn đang trống.
+    </div>
+}
+else
+{
+    <form action="@Url.Action("XacNhanDatHang", "DatHang")" method="post">
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Tên khách hàng</label>
+                <input type="text" name="TenKH" class="form-control"
+                       value="@ViewBag.TenKH" required />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Số điện thoại</label>
+                <input type="text" name="SoDienThoai" class="form-control"
+                       value="@ViewBag.SoDienThoai" required />
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Địa chỉ giao hàng</label>
+            <input type="text" name="DiaChi" class="form-control"
+                   value="@ViewBag.DiaChi" required />
+        </div>
+
+        <h5 class="mt-4">🛒 Tóm tắt giỏ hàng</h5>
+        <table class="table table-bordered text-center align-middle mt-3">
+            <thead class="table-light">
+                <tr>
+                    <th>Tên sách</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ds)
+                {
+                    <tr>
+                        <td>@item.sTenSach</td>
+                        <td>@item.iSoLuong</td>
+                        <td>@String.Format("{0:N0} đ", item.dDonGia)</td>
+                        <td>@String.Format("{0:N0} đ", item.ThanhTien)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="text-end mt-3">
+            <h5 class="text-danger">
+                Tổng tiền: @String.Format("{0:N0} đ", Model.TongThanhTien())
+            </h5>
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary px-4">
+                <i class="fas fa-check"></i> Đồng ý đặt hàng
+            </button>
+            <a href="@Url.Action("XemGioHang", "DatHang")" class="btn btn-secondary ms-2">
+                Quay lại giỏ hàng
+            </a>
+        </div>
+    </form>
+}
