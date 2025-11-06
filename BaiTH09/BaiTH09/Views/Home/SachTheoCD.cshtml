@@ -1,0 +1,44 @@
+﻿@model IEnumerable<BaiTH09.Models.Sach>
+@{
+    ViewBag.Title = "Sách theo chủ đề";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4 text-primary">Chủ đề: @ViewBag.TenChuDe</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning text-center">
+            Không có sách nào thuộc chủ đề này.
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var s in Model)
+            {
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="@Url.Content(s.AnhBia)"
+                             class="card-img-top" alt="@s.TenSach"
+                             style="object-fit: contain; height: 250px; background-color: #fff;" />
+
+                        <div class="card-body">
+                            <h5 class="card-title text-truncate">@s.TenSach</h5>
+                            <p class="card-text text-muted">
+                                <strong>NXB:</strong> @s.NhaXuatBan.TenNXB <br />
+                                <strong>Giá:</strong> @string.Format("{0:N0} VNĐ", s.GiaBan)
+                            </p>
+                        </div>
+
+                        <div class="card-footer text-center">
+                            <a href="@Url.Action("ChiTietSach", "Home", new { id = s.MaSach })"
+                               class="btn btn-outline-primary btn-sm">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

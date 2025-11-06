@@ -1,0 +1,78 @@
+﻿@model IEnumerable<BaiTH09.Models.Sach>
+@{
+    ViewBag.Title = "Tìm kiếm nâng cao";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Giả sử bạn sử dụng Layout có menu trái/phải
+}
+
+<div class="container mt-4">
+    <div class="row">
+
+        <div class="col-">
+            <h2 class="text-center mb-4 text-primary">Tìm kiếm nâng cao</h2>
+
+            @using (Html.BeginForm("TimKiemNangCao", "Home", FormMethod.Post, new { @class = "p-4 border rounded shadow-sm mb-4" }))
+            {
+                <div class="form-group mb-3">
+                    <label for="keyword">Tên sản phẩm / Từ khóa:</label>
+                    <input type="text" name="keyword" class="form-control" value="@Request.Form["keyword"]" placeholder="Từ khóa..." />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="MaChuDe">Chủ đề:</label>
+                    @Html.DropDownList("MaChuDe", (SelectList)ViewBag.MaChuDe, "--- Tất cả Chủ đề ---", new { @class = "form-control" })
+                </div>
+
+                <div class="form-group mb-3">
+                    <label>Giá:</label>
+                    <div class="d-flex flex-column">
+                        @foreach (var item in (List<SelectListItem>)ViewBag.KhoangGia)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="PriceRange" value="@item.Value" id="price_@item.Value" @(item.Selected ? "checked" : "")>
+                                <label class="form-check-label" for="price_@item.Value">
+                                    @item.Text
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Search</button>
+            }
+
+            <hr />
+
+            @if (!Model.Any() && Request.HttpMethod == "POST")
+            {
+                <div class="alert alert-info text-center">
+                    Không tìm thấy sách nào phù hợp với tiêu chí tìm kiếm.
+                </div>
+            }
+            else if (Model.Any())
+            {
+                <h4 class="mb-4">Kết quả tìm kiếm (@Model.Count() sách)</h4>
+                <div class="row">
+                    @foreach (var s in Model)
+                    {
+                        // Tái sử dụng bố cục hiển thị sách đã làm ở các câu trước
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm">
+                                <img src="@Url.Content(s.AnhBia)" class="card-img-top" alt="@s.TenSach" style="object-fit: contain; height: 200px; background-color: #fff;" />
+                                <div class="card-body">
+                                    <h5 class="card-title text-truncate">@s.TenSach</h5>
+                                    <p class="card-text text-muted">
+                                        <strong>Chủ đề:</strong> @s.ChuDe.TenChuDe <br />
+                                        <strong>Giá:</strong> @string.Format("{0:N0} VNĐ", s.GiaBan)
+                                    </p>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <a href="@Url.Action("ChiTietSach", "Home", new { id = s.MaSach })" class="btn btn-outline-primary btn-sm">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

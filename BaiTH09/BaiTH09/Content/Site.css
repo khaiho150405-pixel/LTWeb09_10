@@ -1,0 +1,336 @@
+﻿/* ===== VARIABLES ===== */
+:root {
+    --primary: #2C5AA0;
+    --primary-dark: #1E3D72;
+    --primary-light: #4A7BC7;
+    --secondary: #F8F9FA;
+    --accent: #FF6B35;
+    --accent-hover: #E55A2B;
+    --text-dark: #2D3748;
+    --text-light: #6C757D;
+    --text-lighter: #A0AEC0;
+    --border: #E2E8F0;
+    --shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0px 10px 25px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --radius: 8px;
+}
+
+/* ===== BASE STYLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: #2D3748;
+    background-color: #F5F7FA;
+    line-height: 1.6;
+}
+
+/* ===== HEADER STYLES ===== */
+.navbar {
+    background: linear-gradient(135deg, #2C5AA0 0%, #1E3D72 100%);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 12px 0;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    color: #FFFFFF;
+}
+
+    .navbar-brand:hover {
+        transform: translateY(-2px);
+        color: #FFFFFF;
+    }
+
+    .navbar-brand i {
+        margin-right: 8px;
+        font-size: 1.8rem;
+    }
+
+.nav-link {
+    font-weight: 500;
+    padding: 8px 16px !important;
+    margin: 0 4px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    color: #FFFFFF;
+}
+
+    .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
+        color: #FFFFFF;
+    }
+
+    .nav-link.active {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+        color: #FFFFFF;
+    }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 15%;
+            width: 70%;
+            height: 2px;
+            background-color: #FFFFFF;
+        }
+
+.search-form {
+    position: relative;
+}
+
+    .search-form input {
+        border: none;
+        border-radius: 8px 0 0 8px;
+        padding: 10px 16px;
+        width: 280px;
+        font-size: 0.9rem;
+        outline: none;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        background-color: #FFFFFF;
+        color: #2D3748;
+        border: 1px solid #E2E8F0;
+    }
+
+        .search-form input:focus {
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2), 0 0 0 3px rgba(44, 90, 160, 0.2);
+            border-color: #4A7BC7;
+        }
+
+    .search-form button {
+        background-color: lightcyan;
+        color: grey;
+        border: none;
+        border-radius: 0 8px 8px 0;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+    }
+
+        .search-form button:hover {
+            background-color: lightblue;
+        }
+
+.lang-selector {
+    margin-left: 16px;
+}
+
+    .lang-selector button {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #FFFFFF;
+        padding: 6px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.85rem;
+    }
+
+        .lang-selector button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+/* ===== MAIN LAYOUT ===== */
+.container-fluid {
+    padding: 0 32px;
+}
+
+.sidebar {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+    margin-top: 24px;
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+
+/* Vấn đề 1: Sidebar chia thành 2 phần riêng biệt */
+.menu-box {
+    margin-bottom: 32px;
+}
+
+    .menu-box:last-child {
+        margin-bottom: 0;
+    }
+
+.menu-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2C5AA0;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+}
+
+/* Đã bỏ icon trong menu-title */
+.menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* tạo khoảng cách giữa các link */
+    padding: 0;
+}
+
+    .menu-list a {
+        display: block;
+        color: #2D3748;
+        text-decoration: none;
+        padding: 6px 8px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+        .menu-list a:hover {
+            background-color: rgba(44, 90, 160, 0.08);
+            color: #2C5AA0;
+            padding-left: 12px;
+        }
+
+/* ===== CONTENT AREA ===== */
+.content {
+    padding: 24px 0 24px 32px;
+}
+
+/* ===== BANNER CAROUSEL ===== */
+#bannerCarousel {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    margin-bottom: 32px;
+}
+
+    #bannerCarousel .carousel-item {
+        height: 500px;
+    }
+
+.banner-img {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s ease-in-out;
+}
+
+/* Nút điều hướng */
+.carousel-control-prev, .carousel-control-next {
+    width: 5%;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+    .carousel-control-prev:hover, .carousel-control-next:hover {
+        opacity: 1;
+    }
+
+/* Chấm chỉ thị */
+.carousel-indicators {
+    bottom: 10px;
+}
+
+    .carousel-indicators button {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin: 0 5px;
+        background-color: #6C757D;
+    }
+
+        .carousel-indicators button.active {
+            background-color: #2C5AA0;
+        }
+
+.body-content {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 32px;
+    min-height: 500px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background: linear-gradient(135deg, #2C5AA0 0%, #1E3D72 100%);
+    color: #FFFFFF;
+    padding: 40px 0;
+    margin-top: 48px;
+    text-align: center;
+}
+
+    footer p {
+        margin: 0;
+        font-size: 0.9rem;
+        opacity: 0.9;
+        line-height: 1.8;
+    }
+
+/* ===== RESPONSIVE STYLES ===== */
+@media (max-width: 992px) {
+    .sidebar {
+        position: static;
+        margin-top: 0;
+        margin-bottom: 32px;
+    }
+
+    .content {
+        padding-left: 0;
+    }
+
+    .search-form input {
+        width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 0 16px;
+    }
+
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    .search-form {
+        margin-top: 16px;
+        margin-left: 0;
+        width: 100%;
+    }
+
+        .search-form input {
+            width: 100%;
+        }
+
+    .lang-selector {
+        margin-left: 0;
+        margin-top: 8px;
+    }
+
+    #bannerCarousel .carousel-item {
+        height: 200px;
+    }
+}
+
+/* ===== CUSTOM STYLES FOR MVC COMPONENTS ===== */
+.navbar-toggler {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
